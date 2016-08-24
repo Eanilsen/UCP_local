@@ -1,0 +1,56 @@
+\subparagraph*{Even A. Nilsen 14.\+08.\+2016}
+
+\subsection*{1. Preprocessor Directives}
+
+a) The compiler will look for the header file in pre-\/determined directories. This method is normally used to include standard library header files.
+
+b) The compiler will look for the header file in the same directory as the file containing the directive.
+
+c) Assigns a name to a constant value. Everywhere the compiler encounters the word {\ttfamily L\+E\+N\+G\+T\+H} it replace it with {\ttfamily 100}.
+
+d) Creates a macro which is a fragment of code which has been given a name. {\ttfamily return C\+U\+B\+E(1 + 2);} would evaluate to {\ttfamily return ((1 + 2) $\ast$ (1 + 2) $\ast$ (1 + 2));}
+
+e) This creates a macro with multiple arguments. It also uses a previously defined macro in its code fragment. {\ttfamily C\+A\+L\+C(1,2,3)} would evaluate to\+: ``` ((1) + ((2) $\ast$ (2) $\ast$ (2)) + (((3) $\ast$ (3) $\ast$ (3)) $\ast$ ((3) $\ast$ (3) $\ast$ (3)) $\ast$ ((3) $\ast$ (3) $\ast$ (3))) ) ``` I hope I got the parentheses right.
+
+f) This is an example of conditional compiling. Meaning that the code in the {\ttfamily \#ifdef} block would only be compiled if the directive {\ttfamily L\+E\+N\+G\+T\+H} was defined.
+
+g) This is another example of conditional compiling, only this time we are checking if the directive {\ttfamily T\+H\+E\+F\+I\+L\+E} is {\bfseries N\+O\+T} defined. This is done to make sure that no function or include directive is defined twice in the same program.
+
+\subsection*{2. Shell Commands}
+
+a) {\ttfamily ls $\ast$\+Ralph$\ast$}
+
+b) {\ttfamily ls $\vert$ grep -\/e \char`\"{}$^\wedge$\mbox{[}0-\/9\mbox{]}\mbox{[}0-\/9\mbox{]}-\/...\$\char`\"{}}
+
+c) {\ttfamily ls $\ast$\mbox{[}$^\wedge$\+Aa\+Ee\+Ii\+Oo\+Uu\+Yy\mbox{]}/$\ast$$^\wedge$\mbox{[}Aa\+Ee\+Ii\+Oo\+Uu\+Yy\mbox{]}}
+
+d) {\ttfamily alias lsc=\char`\"{}ls -\/a $\ast$.\+c\char`\"{}} The {\ttfamily -\/a} flag tells ls to include hidden files.
+
+e) {\ttfamily alias gcc=\char`\"{}gcc -\/\+Wall -\/ansi -\/pedantic\char`\"{}}
+
+\subsection*{3. Global Variables and Static Functions}
+
+a) Global variables are bad for a number of different reasons.
+\begin{DoxyItemize}
+\item {\bfseries Non-\/locality} -\/ Global variables can be accessed and modified by any part of the program.
+\item {\bfseries Implicit coupling} -\/ The use of global variables often creates tight tight coupling between variables and functions.
+\item {\bfseries Concurrency} -\/ If the global variables can be accessed by multiple theads of execution, synchronization is necessary to make the system thread-\/safe. \mbox{[}Located at\mbox{]}\mbox{[}$^\wedge$1\mbox{]}
+\end{DoxyItemize}
+
+\mbox{[}$^\wedge$1\mbox{]}\+: Rishikesh Parkhe, {\itshape c2.\+com}, \char`\"{}\+Global Variables Are Bad\char`\"{}(blog),posted July 31, 2013, accessed August 15, 2016, \href{http://c2.com/cgi/wiki?GlobalVariablesAreBad}{\tt http\+://c2.\+com/cgi/wiki?\+Global\+Variables\+Are\+Bad}
+
+b) The {\ttfamily static} keyword is a storage class specifier, meaning that it indicates where a variable or function is stored. The reason you would never declare a static function in a header file is because it would be inaccessible from outside that file, and therefore be useless.
+
+\subsection*{4. Compile Dependencies}
+
+a) {\ttfamily main.\+c} includes both {\ttfamily database.\+h} and {\ttfamily util.\+h}.
+
+b) {\ttfamily main.\+c}, {\ttfamily database.\+c}, {\ttfamily database.\+h}, {\ttfamily util.\+c} and {\ttfamily interface.\+c} all include {\ttfamily util.\+h}.
+
+c) {\ttfamily main.\+o}, {\ttfamily database.\+o}, {\ttfamily util.\+o} and {\ttfamily interface.\+o} would all be created during compilation.
+
+d) {\ttfamily main.\+o} and {\ttfamily database.\+o} would need to be recompiled if {\ttfamily database.\+h} was modified.
+
+e) {\ttfamily main.\+o}, {\ttfamily database.\+o}, {\ttfamily util.\+o} and {\ttfamily interface.\+o} would need to be recompiled if {\ttfamily util.\+h} was modified.
+
+f) {\ttfamily main.\+o}, {\ttfamily database.\+o}, {\ttfamily util.\+o} and {\ttfamily interface.\+o} would need to be recompiled if {\ttfamily util.\+c} was modified. 

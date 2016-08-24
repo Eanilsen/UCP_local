@@ -1,3 +1,10 @@
+/**
+ * @brief Answers to question 3
+ *
+ * @author Even A. Nilsen
+ * @version 15.08.2016
+ */
+
 #ifndef DOWNLOAD_STATS_H
 #define DOWNLOAD_STATS_H 
 

@@ -1,3 +1,10 @@
+/**
+ * download.h - header file for download.c
+ *
+ * @author  Even A. Nilsen
+ * @version 15.08.2016
+ */
+
 #ifndef DOWNLOAD_H
 #define DOWNLOAD_H 
 

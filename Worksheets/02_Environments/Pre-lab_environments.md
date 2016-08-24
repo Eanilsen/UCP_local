@@ -36,7 +36,7 @@ a) `ls *Ralph*`
 
 b) `ls | grep -e "^[0-9][0-9]-...$"`
 
-c)
+c) `ls *[^AaEeIiOoUuYy]/*^[AaEeIiOoUuYy]`
 
 d) `alias lsc="ls -a *.c"`  
 The `-a` flag tells ls to include hidden files.
