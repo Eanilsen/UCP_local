@@ -1,4 +1,4 @@
-# Pre-lab Exercises - Worksheet2: Pointers #
+# Pre-lab Exercises - Worksheet3: Pointers #
 ##### Even A. Nilsen 19.08.2016 #####
 
 ## 1. Pointer Problems ##
