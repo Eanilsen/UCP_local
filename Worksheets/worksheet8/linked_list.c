@@ -28,16 +28,16 @@ LinkedList* initialize()
  * @param list LinkedList
  * @param val value assigned to node
  */
-void append(LinkedList *list, void *data, int size)
+void append(LinkedList *list, int val)
 {
     if (list->size == 0)
     {
-        firstNode(list, data);
+        firstNode(list, val);
     }
     else
     {
         LinkedListNode *node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-        node->data = data;
+        node->value = val;
         node->previous = list->tail;
         node->next = NULL;
         list->tail->next = node;
@@ -51,16 +51,16 @@ void append(LinkedList *list, void *data, int size)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void prepend(LinkedList *list, void *data)
+void prepend(LinkedList *list, int val)
 {
     if (list->size == 0)
     {
-        firstNode(list, data);
+        firstNode(list, val);
     }
     else
     {
         LinkedListNode *node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-        node->data = data;
+        node->value = val;
         node->next = list->head;
         node->previous = NULL;
         list->head->previous = node;
@@ -74,12 +74,12 @@ void prepend(LinkedList *list, void *data)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void firstNode(LinkedList *list, void *data)
+void firstNode(LinkedList *list, int val)
 {
     if (list->size == 0)
     {
         LinkedListNode *node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-        node->data = data;
+        node->value = val;
         node->previous = NULL;
         node->next = NULL;
         list->head = node;
@@ -137,7 +137,7 @@ void freeList(LinkedList *list)
  * @param list LinkedList
  * @param val value to search for
  */
-LinkedListNode* findNode(LinkedList *list, int index)
+LinkedListNode* findNode(LinkedList *list, int val)
 {
     int found = FALSE;
     LinkedListNode *node = NULL;

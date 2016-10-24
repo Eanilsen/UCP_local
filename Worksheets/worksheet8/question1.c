@@ -14,11 +14,21 @@
 int main(int argc, char *argv[])
 {
     JournalEntry *entry = NULL;
-    readFile("journal.txt", entry);
+    char *p;
+    int index;
+    if (argv[1])
+    {
+        index = strtol(argv[1], &p, 10);
+        readFile("journal.txt", entry, index);
+    }
+    else
+    {
+        printf("Error\n");
+    }
     return 0;
 }
 
-void readFile(char *filename, JournalEntry *entry)
+void readFile(char *filename, JournalEntry *entry, int index)
 {
     int len, i;
     FILE *f = fopen(filename, "rb");
@@ -30,19 +40,28 @@ void readFile(char *filename, JournalEntry *entry)
     else
     {
         fscanf(f, "%d", &len);
-        entry = (JournalEntry*)malloc(len+1 * sizeof(JournalEntry));
+        entry = (JournalEntry*)malloc(len * sizeof(JournalEntry));
         for (i = 0; i < len; i++)
         {
-            fscanf(f, "%d/%d/%d", &entry[i].date.day, &entry[i].date.month, &entry[i].date.year);
+            fscanf(f, "%d/%d/%d\n", &entry[i].date.day, &entry[i].date.month, &entry[i].date.year);
             entry[i].entry = (char*)malloc(MAXLENGTH * sizeof(char));
             fgets(entry[i].entry, MAXLENGTH+1, f);
-            printf("%d-%d-%d\n", entry[i].date.day, entry[i].date.month, entry[i].date.year);
-            printf("%s\n", entry[i].entry);
         }
         if (ferror(f))
         {
             perror("Error reading from file");
         }
+
+        if (index+1 > len)
+        {
+            printf("Index out of bounds. List size: %d\n", len);
+        }
+        else
+        {
+            printf("%d-%02d-%02d: %s\n", entry[index].date.year, entry[index].date.month, entry[index].date.day, entry[index].entry);
+        }
+
         fclose(f);
     }
 }
+

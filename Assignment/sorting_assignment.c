@@ -29,24 +29,31 @@ int getArgs(int argc, char **argv)
     char *inputFile = "";
     char *outputFile = "";
 
-    for (idx = 1; idx < argc; ++idx)
+    if (argc != 5)
     {
-        if (isEqual(argv[idx], "-i") == TRUE && isEqual(inputFile, "") == TRUE)
+        printf("Invalid number of arguments. Must be one input file and one output file.\n");
+    }
+    else
+    {
+        for (idx = 1; idx < argc; ++idx)
         {
-            idx++;
-            inputFile = argv[idx];
-            printf("Input file: %s\n", inputFile);
-        }
-        else if (isEqual(argv[idx], "-o") == TRUE && isEqual(outputFile, "") == TRUE)
-        {
-            idx++;
-            outputFile = argv[idx];
-            printf("Output file: %s\n", outputFile);
-        }
-        else
-        {
-            fprintf(stderr, "Unknown argument: %s\n", argv[idx]);
-            exit(EXIT_FAILURE);
+            if (isEqual(argv[idx], "-i") == TRUE && isEqual(inputFile, "") == TRUE)
+            {
+                idx++;
+                inputFile = argv[idx];
+                printf("Input file: %s\n", inputFile);
+            }
+            else if (isEqual(argv[idx], "-o") == TRUE && isEqual(outputFile, "") == TRUE)
+            {
+                idx++;
+                outputFile = argv[idx];
+                printf("Output file: %s\n", outputFile);
+            }
+            else
+            {
+                fprintf(stderr, "Unknown argument: %s\n", argv[idx]);
+                exit(EXIT_FAILURE);
+            }
         }
     }
     return 0;
@@ -72,3 +79,4 @@ int isEqual(char *str1, char *str2)
         return !TRUE;
     }
 }
+

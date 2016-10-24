@@ -12,8 +12,6 @@ typedef struct
     } date;
 } JournalEntry;
 
-void readFile(char *filename, JournalEntry *entry);
-
-int concatenate(int x, int y);
+void readFile(char *filename, JournalEntry *entry, int index);
 
 #endif /* end of include guard: QUESTION1_H_WBEU2HZQ */
