@@ -1,0 +1,4 @@
+name (string), age (integer), address (string), lat (integer), long (integer)
+mark, 21, at home
+jordan, 19, his place
+
