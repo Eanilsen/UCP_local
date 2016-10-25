@@ -1,9 +1,11 @@
 #ifndef LINKED_LIST_H_0SKXHUYL
 #define LINKED_LIST_H_0SKXHUYL
 
+#include "util.h"
+
 typedef struct LinkedListNode
 {
-    void *data;
+    char *data;
     struct LinkedListNode *next;
     struct LinkedListNode *previous;
 } LinkedListNode;
@@ -17,20 +19,21 @@ typedef struct
 
 LinkedList* initialize();
 
-void append(LinkedList *list, int val);
+void append(LinkedList *list, char *data);
 
-void prepend(LinkedList *list, int val);
+void prepend(LinkedList *list, char *data);
 
 void printAll(LinkedList *list);
 
-void firstNode(LinkedList *list, int val);
+void firstNode(LinkedList *list, char *data);
 
 void freeList(LinkedList *list);
 
-LinkedListNode* findNode(LinkedList *list, int val);
+LinkedListNode* findNode(LinkedList *list, int index);
 
-void deleteNode(LinkedList *list, int val);
+void deleteNode(LinkedList *list, int index);
 
-int findValue(LinkedList *list, int val);
+LinkedListNode *pop(LinkedList *list, int index);
+
 
 #endif /* end of include guard: LINKED_LIST_H_0SKXHUYL */

@@ -28,7 +28,7 @@ LinkedList* initialize()
  * @param list LinkedList
  * @param val value assigned to node
  */
-void append(LinkedList *list, void *data, int size)
+void append(LinkedList *list, char *data)
 {
     if (list->size == 0)
     {
@@ -51,7 +51,7 @@ void append(LinkedList *list, void *data, int size)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void prepend(LinkedList *list, void *data)
+void prepend(LinkedList *list, char *data)
 {
     if (list->size == 0)
     {
@@ -74,7 +74,7 @@ void prepend(LinkedList *list, void *data)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void firstNode(LinkedList *list, void *data)
+void firstNode(LinkedList *list, char *data)
 {
     if (list->size == 0)
     {
@@ -103,7 +103,7 @@ void printAll(LinkedList *list)
     while (current != NULL)
     {
         printf("Current: %p\n", current);
-        printf("Value: %d\n", current->value);
+        printf("Value: %s\n", current->data);
         printf("Next: %p -> %p\n", current, current->next);
         printf("Previous: %p -> %p\n", current, current->previous);
         printf("----------\n");
@@ -126,6 +126,7 @@ void freeList(LinkedList *list)
     for (i = 0; i < size; i++)
     {
         list->head = current->next;
+        free(current->data);
         free(current);
         current = list->head;
         list->size--;
@@ -139,21 +140,18 @@ void freeList(LinkedList *list)
  */
 LinkedListNode* findNode(LinkedList *list, int index)
 {
-    int found = FALSE;
+    int i = 0;
     LinkedListNode *node = NULL;
 
-    if (list->size != 0)
+    if (list->size != 0 && index < list->size)
     {
         LinkedListNode *current = list->head;
-        while (current != NULL && found == FALSE)
+        while (current != NULL && index > i)
         {
-            if (current->value == val)
-            {
-                node = current;
-                found = TRUE;
-            }
             current = current->next;
+            i++;
         }
+        node = current;
     }
 
     return node;
@@ -164,43 +162,58 @@ LinkedListNode* findNode(LinkedList *list, int index)
  * @param list LinkedList
  * @param val value to search for 
  */
-void deleteNode(LinkedList *list, int val)
+void deleteNode(LinkedList *list, int index)
 {
-    LinkedListNode *node = findNode(list, val);
+    LinkedListNode *node = findNode(list, index);
     if (node != NULL)
     {
-        printf("Deleting node: %p with value: %d\n", node, node->value);
+        printf("Deleting node: %p with value: %s\n", node, node->data);
         node->previous->next = node->next;
         node->next->previous = node->previous;
+        free(node->data);
         free(node);
         list->size--;
         printf("List size now: %d\n", list->size);
     }
     else
     {
-        printf("Node with value: %d was not found\n", val);
+        printf("Node with index: %d was not found.\n", index);
     }
 }
 
 /**
- * Searches the list for a value and returns it
+ * Searches for a node given an index. Removes it from the list and returns it
  * @param list LinkedList
- * @param val value to search for
- * @return value
+ * @param index Node to pop
+ * @return node
  */
-int findValue(LinkedList *list, int val)
+LinkedListNode *pop(LinkedList *list, int index)
 {
-    int value = 0;
-    LinkedListNode *node = findNode(list, val);
-    if (node != NULL)
+    LinkedListNode *node = NULL;
+    if ((node = findNode(list, index)) != NULL && index != 0 &&
+            index < list->size-1)
     {
-        value = node->value;
+        node->next->previous = node->previous;
+        node->previous->next = node->next;
+        list->size--;
+    }
+    else if ((node = findNode(list, index)) != NULL && index == 0)
+    {
+        list->head = node->next;
+        list->head->previous = NULL;
+        list->size--;
+    }
+    else if ((node = findNode(list, index)) != NULL && index == list->size-1)
+    {
+        list->tail = node->previous;
+        list->tail->next = NULL;
+        list->size--;
     }
     else
     {
-        printf("Value %d was not found.\n", val);
+        printf("Node with index: %d was not found\n", index);
     }
 
-    return value;
+    return node;
 }
 

@@ -1,13 +1,10 @@
-#ifndef FILEREADER_H_NL0MB5ZM
-#define FILEREADER_H_NL0MB5ZM
+#ifndef FILEREADER_H_3S2MU9XJ
+#define FILEREADER_H_3S2MU9XJ
 
-typedef struct
-{
-    char **line;
-    int arrSize;
-} Strings;
+#include "linked_list.h"
 
+void readFile(char *filename, LinkedList *list, int numRows);
 char *getLine(FILE *fp);
-void readFile(char *filename);
+int getNumRows(char *filename);
 
-#endif /* end of include guard: FILEREADER_H_NL0MB5ZM */
+#endif /* end of include guard: FILEREADER_H_3S2MU9XJ */

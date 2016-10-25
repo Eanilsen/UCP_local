@@ -9,10 +9,18 @@
 #include <stdlib.h>
 #include "sorting_assignment.h"
 #define TRUE 1
+#define FALSE !TRUE
 
 int main(int argc, char *argv[])
 {
-    getArgs(argc, argv);
+    LinkedList *list = initialize();
+    LinkedListNode *node;
+    getArgs(argc, argv, list);
+    printAll(list);
+    pop(list, 1);
+    printAll(list);
+    freeList(list);
+    free(list);
 
     return 0;
 }
@@ -23,7 +31,7 @@ int main(int argc, char *argv[])
  * @param argv command line arguments
  * @return 1 if error, 0 if ok
  */
-int getArgs(int argc, char **argv)
+int getArgs(int argc, char **argv, LinkedList *list)
 {
     int idx = 0;
     char *inputFile = "";
@@ -32,6 +40,7 @@ int getArgs(int argc, char **argv)
     if (argc != 5)
     {
         printf("Invalid number of arguments. Must be one input file and one output file.\n");
+        exit(EXIT_FAILURE);
     }
     else
     {
@@ -41,7 +50,7 @@ int getArgs(int argc, char **argv)
             {
                 idx++;
                 inputFile = argv[idx];
-                printf("Input file: %s\n", inputFile);
+                readFile(inputFile, list, getNumRows(inputFile));
             }
             else if (isEqual(argv[idx], "-o") == TRUE && isEqual(outputFile, "") == TRUE)
             {
@@ -57,26 +66,5 @@ int getArgs(int argc, char **argv)
         }
     }
     return 0;
-}
-
-/**
- * Wrapper for strcmp, returns 1 if true and 0 if false
- * @param *str1 string to compare
- * @param *str2 string to compare
- * @return TRUE
- * @return !TRUE
- */
-int isEqual(char *str1, char *str2)
-{
-    int equal = strcmp(str1, str2);
-
-    if (equal == 0)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return !TRUE;
-    }
 }
 

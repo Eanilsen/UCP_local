@@ -2,23 +2,20 @@
  * filereader.c - Handles file input and output
  *
  * @author		Even A. Nilsen
- * @version		20.10.2016
+ * @version		25.10.2016
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "filereader.h"
+#define TRUE 1
+#define FALSE !TRUE
 #define MAXLENGTH 1000
 
-int main(int argc, char *argv[])
-{
-    readFile("test.csv");
-
-    return 0;
-}
-
-void readFile(char *filename)
+void readFile(char *filename, LinkedList *list, int numRows)
 {
     FILE *fp = fopen(filename, "rb");
+    int i;
 
     if (fp == NULL)
     {
@@ -26,43 +23,21 @@ void readFile(char *filename)
     }
     else
     {
-        int count = 0;
-        int i;
-        int length = MAXLENGTH;
-        char *tmp = (char*)malloc(length * sizeof(char));
-        Strings *str = malloc(sizeof(Strings));
-        str->arrSize = 0;
-        while (fscanf(fp, "%s", &tmp) != EOF)
+        for (i = 0; i < numRows; i++)
         {
-            if (count == length)
-            {
-                length *= 2;
-                tmp = realloc(tmp, length * sizeof(char));
-                if (tmp == NULL)
-                {
-                    fprintf(stderr, "Out of memory.\n");
-                    exit(EXIT_FAILURE);
-                }
-            }
-            str->line[count] = malloc(length * sizeof(char*));
-            str->line[count] = getLine(fp);
-            str->arrSize++;
+            append(list, getLine(fp));
         }
         if (ferror(fp))
         {
             perror("Error reading from the file");
-        }
-        for (i = 0; i < str->arrSize; i++)
-        {
-            printf("%s\n", str->line[i]);
         }
     }
     fclose(fp);
 }
 
 /**
- * Reads the contents of a file
- * @param filename name of the file
+ * Reads a line from a file given a file pointer
+ * @param fp file pointer
  */
 char *getLine(FILE *fp)
 {
@@ -73,7 +48,8 @@ char *getLine(FILE *fp)
 
     if (buf == NULL)
     {
-        fprintf(stderr, "Out of memory\n");
+        fprintf(stderr, "Out of memory.\n");
+        exit(EXIT_FAILURE);
     }
     while (ch != '\n' && ch != EOF)
     {
@@ -83,7 +59,8 @@ char *getLine(FILE *fp)
             buf = realloc(buf, length * sizeof(char));
             if (buf == NULL)
             {
-                fprintf(stderr, "Out of memory\n");
+                fprintf(stderr, "Out of memory.\n");
+                exit(EXIT_FAILURE);
             }
         }
         buf[count] = ch;
@@ -93,5 +70,40 @@ char *getLine(FILE *fp)
     buf[count] = '\0';
 
     return buf;
+}
+
+/**
+ * Counts the number of rows from a file
+ * @param filename name of file
+ */
+int getNumRows(char *filename)
+{
+    FILE *fp = fopen(filename, "rb");
+    int count = 0;
+    int ch;
+    if (fp == NULL)
+    {
+        perror("Error opening the file.");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        while (!feof(fp))
+        {
+            ch = fgetc(fp);
+            if (ch == '\n')
+            {
+                count++;
+            }
+            
+        }
+        if (ferror(fp))
+        {
+            perror("Error reading from the file.");
+        }
+    }
+    fclose(fp);
+    
+    return count;
 }
 
