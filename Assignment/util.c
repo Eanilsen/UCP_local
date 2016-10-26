@@ -30,3 +30,37 @@ int isEqual(char *str1, char *str2)
         return !TRUE;
     }
 }
+
+/**
+ * Checks a filename for a specific extension and adds it if needed
+ * @param filename filename to check
+ */
+char *checkFileExtension(char *filename)
+{
+    char *dot = getFileExtension(filename);
+    char buf[1024];
+    char *returnString = filename;
+    if (!dot || !isEqual(dot, ".csv"))
+    {
+        strcpy(buf, filename);
+        strcat(buf, ".csv");
+        returnString = buf;
+    }
+    return returnString;
+}
+
+/**
+ * Returns a file's extension and NULL if it does not have any
+ * @param filename filename to check
+ */
+char *getFileExtension(char *filename)
+{
+    char *dot = strrchr(filename, '.');
+    char *ext = NULL;
+    if (dot)
+    {
+        ext = dot;
+    }
+    return ext;
+}
+

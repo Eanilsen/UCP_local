@@ -14,12 +14,8 @@
 int main(int argc, char *argv[])
 {
     LinkedList *list = initialize();
-    LinkedListNode *node;
     getArgs(argc, argv, list);
     printAll(list);
-    node = pop(list, 0);
-    printf("%s\n", node->data);
-    free(node);
     freeList(list);
     free(list);
 

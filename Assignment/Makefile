@@ -20,3 +20,8 @@ filereader.o: filereader.h filereader.c linked_list.h
 
 clean:
 	rm -rf $(OBJ) $(TARGET)
+
+help:
+	@echo ""
+	@cat HELP.md
+	@echo ""

@@ -21,6 +21,11 @@ void readFile(char *filename, LinkedList *list, int numRows)
     {
         perror("Error opening the file");
     }
+    else if (!isEqual(getFileExtension(filename), ".csv"))
+    {
+        fprintf(stderr, "File must be of type \".csv\"\n");
+        exit(EXIT_FAILURE);
+    }
     else
     {
         for (i = 0; i < numRows; i++)
@@ -112,7 +117,7 @@ int getNumRows(char *filename)
  */
 void writeToFile(char *filename, LinkedList *list)
 {
-    FILE *fp = fopen(filename, "wb");
+    FILE *fp = fopen(checkFileExtension(filename), "wb");
     LinkedListNode *node;
     int i;
     if (fp == NULL)
