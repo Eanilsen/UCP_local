@@ -8,14 +8,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include "sorting_assignment.h"
-#define TRUE 1
-#define FALSE !TRUE
 
 int main(int argc, char *argv[])
 {
     LinkedList *list = initialize();
+    LinkedListNode *node;
     getArgs(argc, argv, list);
-    printAll(list);
+    node = findNode(list, 1);
+    printf("%s\n", (char*)node->data);
     freeList(list);
     free(list);
 
@@ -43,13 +43,13 @@ int getArgs(int argc, char **argv, LinkedList *list)
     {
         for (idx = 1; idx < argc; ++idx)
         {
-            if (isEqual(argv[idx], "-i") == TRUE && isEqual(inputFile, "") == TRUE)
+            if (isEqual(argv[idx], "-i") && isEqual(inputFile, ""))
             {
                 idx++;
                 inputFile = argv[idx];
                 readFile(inputFile, list, getNumRows(inputFile));
             }
-            else if (isEqual(argv[idx], "-o") == TRUE && isEqual(outputFile, "") == TRUE)
+            else if (isEqual(argv[idx], "-o") && isEqual(outputFile, ""))
             {
                 idx++;
                 outputFile = argv[idx];

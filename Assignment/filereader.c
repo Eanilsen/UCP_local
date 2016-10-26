@@ -130,7 +130,7 @@ void writeToFile(char *filename, LinkedList *list)
         for (i = 0; i < list->size; i++)
         {
             node = findNode(list, i);
-            fputs(node->data, fp);
+            fputs((char*)node->data, fp);
             fputc('\n', fp);
         }
         if (ferror(fp))

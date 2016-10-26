@@ -28,7 +28,7 @@ LinkedList* initialize()
  * @param list LinkedList
  * @param val value assigned to node
  */
-void append(LinkedList *list, char *data)
+void append(LinkedList *list, void *data)
 {
     if (list->size == 0)
     {
@@ -51,7 +51,7 @@ void append(LinkedList *list, char *data)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void prepend(LinkedList *list, char *data)
+void prepend(LinkedList *list, void *data)
 {
     if (list->size == 0)
     {
@@ -74,7 +74,7 @@ void prepend(LinkedList *list, char *data)
  * @param list LinkedList
  * @param val value assigned to the node
  */
-void firstNode(LinkedList *list, char *data)
+void firstNode(LinkedList *list, void *data)
 {
     if (list->size == 0)
     {
@@ -89,29 +89,6 @@ void firstNode(LinkedList *list, char *data)
     else
     {
         printf("The list is not empty.\n");
-    }
-}
-
-/**
- * Prints all values in the linked list from head to tail
- * @param list LinkedList
- */
-void printAll(LinkedList *list)
-{
-    LinkedListNode *current = NULL;
-    current = list->head;
-    while (current != NULL)
-    {
-        printf("Current: %p\n", current);
-        printf("Value: %s\n", current->data);
-        printf("Next: %p -> %p\n", current, current->next);
-        printf("Previous: %p -> %p\n", current, current->previous);
-        printf("----------\n");
-        current = current->next;
-    }
-    if (list->size == 0)
-    {
-        printf("List is empty\n");
     }
 }
 

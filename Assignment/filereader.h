@@ -2,6 +2,7 @@
 #define FILEREADER_H_3S2MU9XJ
 
 #include "linked_list.h"
+#include "util.h"
 
 void readFile(char *filename, LinkedList *list, int numRows);
 char *getLine(FILE *fp);
