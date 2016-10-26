@@ -107,3 +107,32 @@ int getNumRows(char *filename)
     return count;
 }
 
+/**
+ * Writes the contents of a list to an output file
+ */
+void writeToFile(char *filename, LinkedList *list)
+{
+    FILE *fp = fopen(filename, "wb");
+    LinkedListNode *node;
+    int i;
+    if (fp == NULL)
+    {
+        perror("Error opening the file.");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        for (i = 0; i < list->size; i++)
+        {
+            node = findNode(list, i);
+            fputs(node->data, fp);
+            fputc('\n', fp);
+        }
+        if (ferror(fp))
+        {
+            perror("Error writing to file.");
+        }
+    }
+    fclose(fp);
+}
+

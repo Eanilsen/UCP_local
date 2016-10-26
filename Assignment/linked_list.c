@@ -197,16 +197,25 @@ LinkedListNode *pop(LinkedList *list, int index)
         node->previous->next = node->next;
         list->size--;
     }
-    else if ((node = findNode(list, index)) != NULL && index == 0)
+    else if ((node = findNode(list, index)) != NULL && index == 0 &&
+            list->size != 1)
     {
         list->head = node->next;
         list->head->previous = NULL;
         list->size--;
     }
-    else if ((node = findNode(list, index)) != NULL && index == list->size-1)
+    else if ((node = findNode(list, index)) != NULL && index == list->size-1 &&
+            list->size != 1)
     {
         list->tail = node->previous;
         list->tail->next = NULL;
+        list->size--;
+    }
+    else if ((node = findNode(list, index)) == list->head &&
+            (node = findNode(list, index)) == list->tail)
+    {
+        list->head = NULL;
+        list->tail = NULL;
         list->size--;
     }
     else

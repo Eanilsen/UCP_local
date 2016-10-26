@@ -17,8 +17,9 @@ int main(int argc, char *argv[])
     LinkedListNode *node;
     getArgs(argc, argv, list);
     printAll(list);
-    pop(list, 1);
-    printAll(list);
+    node = pop(list, 0);
+    printf("%s\n", node->data);
+    free(node);
     freeList(list);
     free(list);
 
@@ -56,7 +57,7 @@ int getArgs(int argc, char **argv, LinkedList *list)
             {
                 idx++;
                 outputFile = argv[idx];
-                printf("Output file: %s\n", outputFile);
+                writeToFile(outputFile, list);
             }
             else
             {
