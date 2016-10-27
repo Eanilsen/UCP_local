@@ -1,13 +1,15 @@
 CC = gcc
 CFLAGS = -Wall -pedantic -ansi -g
 OBJ = sorting_assignment.o linked_list.o util.o filereader.o
+TEST = testfile
+TESTOBJ = linked_list.o insertion_sort.o
 TARGET = sorting_assignment
 
 exe: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 test: insertion_sort.o linked_list.o
-	$(CC) $(CFLAGS) linked_list.o insertion_sort.o -o testfile
+	$(CC) $(CFLAGS) $(TESTOBJ) -o $(TEST)
 
 sorting_assignment.o: sorting_assignment.c sorting_assignment.h
 	$(CC) $(CFLAGS) -c sorting_assignment.c
@@ -24,6 +26,8 @@ filereader.o: filereader.h filereader.c linked_list.h
 insertion_sort.o: insertion_sort.c insertion_sort.h
 	$(CC) $(CFLAGS) -c insertion_sort.c
 
+clean_test:
+	rm -rf $(TESTOBJ) $(TEST)
 clean:
 	rm -rf $(OBJ) $(TARGET)
 

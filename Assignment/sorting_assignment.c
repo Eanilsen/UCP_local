@@ -75,7 +75,8 @@ int getColAmount(LinkedList *list)
     char *delim = ",";
     int len = strlen((char*)list->head->data);
     char *str = malloc(len * sizeof(char));
-    str = strtok((char*)list->head->data, delim);
+    str = strcpy(str, (char*)list->head->data);
+    str = strtok(str, delim);
     while (str)
     {
         str = strtok(NULL, delim);
@@ -83,24 +84,3 @@ int getColAmount(LinkedList *list)
     }
     return count;
 }
-
-/**
- * Splits the list data into tokens and prepares it for sorting
- * @param list LinkedList
- * @param colAmnt amount of columns
- */
-void splitList(LinkedList *list, int colAmnt)
-{
-    LinkedList **listArray = malloc(colAmnt * sizeof(LinkedList*));
-    int i, j, len;
-    char *buf;
-    for (i = 0; i < colAmnt; i++)
-    {
-        for (j = 0; j < colAmnt; j++)
-        {
-            len = strlen((char*)findNode(list, j)->data);
-            listArray[i] = initialize();
-        }
-    }
-}
-
