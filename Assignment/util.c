@@ -5,6 +5,7 @@
  * @version		20.10.2016
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "util.h"
 #define TRUE 1
@@ -27,7 +28,7 @@ int isEqual(char *str1, char *str2)
     }
     else
     {
-        return !TRUE;
+        return FALSE;
     }
 }
 

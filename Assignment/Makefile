@@ -6,6 +6,9 @@ TARGET = sorting_assignment
 exe: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
+test: insertion_sort.o linked_list.o
+	$(CC) $(CFLAGS) linked_list.o insertion_sort.o -o testfile
+
 sorting_assignment.o: sorting_assignment.c sorting_assignment.h
 	$(CC) $(CFLAGS) -c sorting_assignment.c
 
@@ -17,6 +20,9 @@ util.o: util.c util.h
 
 filereader.o: filereader.h filereader.c linked_list.h
 	$(CC) $(CFLAGS) -c filereader.c
+
+insertion_sort.o: insertion_sort.c insertion_sort.h
+	$(CC) $(CFLAGS) -c insertion_sort.c
 
 clean:
 	rm -rf $(OBJ) $(TARGET)

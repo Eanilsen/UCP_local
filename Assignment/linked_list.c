@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "linked_list.h"
-#define TRUE 1
-#define FALSE !TRUE
 
 /**
  * Initialize the list, set the size to 0 and point head to NULL
@@ -144,13 +142,11 @@ void deleteNode(LinkedList *list, int index)
     LinkedListNode *node = findNode(list, index);
     if (node != NULL)
     {
-        printf("Deleting node: %p with value: %s\n", node, node->data);
         node->previous->next = node->next;
         node->next->previous = node->previous;
         free(node->data);
         free(node);
         list->size--;
-        printf("List size now: %d\n", list->size);
     }
     else
     {

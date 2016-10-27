@@ -12,6 +12,12 @@
 #define FALSE !TRUE
 #define MAXLENGTH 1000
 
+/**
+ * Reads the content of a file and stores its contents in a linked list
+ * @param filename name of the file
+ * @param list LinkedList
+ * @param numRows number of rows in the file
+ */
 void readFile(char *filename, LinkedList *list, int numRows)
 {
     FILE *fp = fopen(filename, "rb");
@@ -114,6 +120,8 @@ int getNumRows(char *filename)
 
 /**
  * Writes the contents of a list to an output file
+ * @param filename name of the output file
+ * @param list LinkedList
  */
 void writeToFile(char *filename, LinkedList *list)
 {

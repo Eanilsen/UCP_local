@@ -7,15 +7,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "sorting_assignment.h"
 
 int main(int argc, char *argv[])
 {
     LinkedList *list = initialize();
-    LinkedListNode *node;
     getArgs(argc, argv, list);
-    node = findNode(list, 1);
-    printf("%s\n", (char*)node->data);
     freeList(list);
     free(list);
 
@@ -26,6 +24,7 @@ int main(int argc, char *argv[])
  * Handles command line arguments and flags
  * @param argc amount of arguments
  * @param argv command line arguments
+ * @param list LinkedList
  * @return 1 if error, 0 if ok
  */
 int getArgs(int argc, char **argv, LinkedList *list)
@@ -63,5 +62,45 @@ int getArgs(int argc, char **argv, LinkedList *list)
         }
     }
     return 0;
+}
+
+/**
+ * Counts the amount of columns and returns the amount
+ * @param list LinkedList
+ * @return count
+ */
+int getColAmount(LinkedList *list)
+{
+    int count = 0;
+    char *delim = ",";
+    int len = strlen((char*)list->head->data);
+    char *str = malloc(len * sizeof(char));
+    str = strtok((char*)list->head->data, delim);
+    while (str)
+    {
+        str = strtok(NULL, delim);
+        count++;
+    }
+    return count;
+}
+
+/**
+ * Splits the list data into tokens and prepares it for sorting
+ * @param list LinkedList
+ * @param colAmnt amount of columns
+ */
+void splitList(LinkedList *list, int colAmnt)
+{
+    LinkedList **listArray = malloc(colAmnt * sizeof(LinkedList*));
+    int i, j, len;
+    char *buf;
+    for (i = 0; i < colAmnt; i++)
+    {
+        for (j = 0; j < colAmnt; j++)
+        {
+            len = strlen((char*)findNode(list, j)->data);
+            listArray[i] = initialize();
+        }
+    }
 }
 
