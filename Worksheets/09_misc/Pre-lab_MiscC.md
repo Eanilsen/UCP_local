@@ -73,4 +73,7 @@ g) Shift the bits of `1 n` bits to the right and calculate the bitwise XOR of
         = 01001100
 
 ## 3. Random Numbers ##
-a) 
+a) If the function returns a value that is expected to be within some boundary,
+ I would check if it stays within the boundary I have given. Another way to test
+ if the function is doing what one expects of it, is to call it multiple times
+ with the same seed and check if the values match.
