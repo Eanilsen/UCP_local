@@ -15,7 +15,8 @@ d) A constant pointer to a void function that takes zero parameters. Because it
 e) Create an enumeration with three options. `ROCK == 0`, `PAPER == 5` and
  `SCISSORS == 6`.
 
-f) 
+f) Declare a function named `order` which takes a constant character pointer as
+ a parameter and either returns enum value `ASC` or `DESC`.
 
 g) Create a union with two fields and name the union `things`. A union is like
  a struct, but the fields occupy the same memory address. This means that only
@@ -77,3 +78,20 @@ a) If the function returns a value that is expected to be within some boundary,
  I would check if it stays within the boundary I have given. Another way to test
  if the function is doing what one expects of it, is to call it multiple times
  with the same seed and check if the values match.
+
+b) 
+        void rand_int(time_t seed)
+        {
+            int random;
+            random = (rand() % 100) + 1;
+            if (random < 50)
+            {
+                printf("Not so random\n");
+            }
+            else
+            {
+                printf("%d\n", (rand() % 100) + 1);
+            }
+        }
+
+
